@@ -18,9 +18,9 @@ Switching between 'Home page' and 'Favourites' page is made through the navbar a
 - Free Unsplash API (50 requests per hour)
 
 ## App was deployed to the Vercel server and can be visited by
-```
+
 [https://images-app-six.vercel.app/](https://images-app-six.vercel.app/)
-```
+
 
 ## How to run locally
 

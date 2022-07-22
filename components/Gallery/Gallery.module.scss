@@ -1,0 +1,23 @@
+.imagesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 50px;
+  gap: 10px;
+}
+
+.thumbContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.thumb {
+  transition: transform 0.7s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+  }
+}

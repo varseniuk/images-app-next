@@ -3,7 +3,6 @@ import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
 import Gallery from '../components/Gallery/Gallery';
-import { imagesMock } from '../obj';
 import { imageType } from '../typedefs';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';

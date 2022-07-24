@@ -30,7 +30,7 @@ const FavouritesPage: FC = () => {
             onClick={clearFavourites}
             variant="contained"
             color="error"
-            sx={{ width: '25%', alignSelf: 'center', mb: 5 }}
+            className="clearFavouritesButton"
           >
             Clear all
           </Button>

@@ -25,3 +25,9 @@ a {
 .favouritesTitle {
   align-self: center;
 }
+
+.clearFavouritesButton {
+  width: 200px;
+  align-self: center;
+  margin-bottom: 40px;
+}

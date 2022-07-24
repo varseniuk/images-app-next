@@ -72,7 +72,6 @@ const SearchBar: FC<Props> = ({
         className={styles.searchButton}
         variant="contained"
         color="success"
-        sx={{ margin: '0 2rem' }}
       >
         Search
       </Button>
@@ -82,7 +81,7 @@ const SearchBar: FC<Props> = ({
           variant="outlined"
           color="error"
           onClick={handleClearSearch}
-          className={styles.searchButton}
+          className={styles.clearButton}
         >
           Clear search results
         </Button>

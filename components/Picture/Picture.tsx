@@ -5,8 +5,10 @@ import { favouritesActions } from '../../store/reducers/favouritesReducer';
 import { useMemo } from 'react';
 import { imageType } from '../../typedefs';
 import { RootState } from '../../store/store';
+import { useRouter } from 'next/router';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './Picture.module.scss';
 
 interface Props {
@@ -21,6 +23,8 @@ const Picture: FC<Props> = ({ image }) => {
     width: width / 8,
     height: height / 8,
   };
+
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const unsplashLink = `https://unsplash.com/photos/${id}`;
@@ -43,7 +47,15 @@ const Picture: FC<Props> = ({ image }) => {
 
   return (
     <div className={styles.pictureContainer}>
-      <h1>Photo is made by {user.name} </h1>
+      <Button
+        variant="contained"
+        startIcon={<ArrowBackIcon />}
+        onClick={() => router.back()}
+      >
+        Go back
+      </Button>
+
+      <h1>Photo is made by {user.name}</h1>
 
       <Image
         src={image.urls.regular}
@@ -53,19 +65,23 @@ const Picture: FC<Props> = ({ image }) => {
       />
 
       <p>{description || "Unfortunatelly, there's no description :("}</p>
+
       <p>
         Total views: <strong>{views.toLocaleString('en-US')}</strong>
       </p>
+
       <p>
         For more details about this picture visit{' '}
         <strong>
           <a href={unsplashLink}>Unsplash</a>
         </strong>
       </p>
+
       <Stack spacing={2} direction="row">
         <Button onClick={addToFav} variant="contained">
           Add to favourites
         </Button>
+
         {isFavourited && (
           <Button onClick={removeFromFav} variant="outlined" color="error">
             Remove from favourites

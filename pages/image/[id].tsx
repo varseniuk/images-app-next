@@ -24,21 +24,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 };
+
 interface Props {
   image: imageType;
 }
 
 const ImagePage: FC<Props> = ({ image }) => {
-  const imageSize = {
-    width: image.width / 8,
-    height: image.height / 8,
-  };
-
   return (
     <>
       <Head>
         <title>Image by {image.user.name}</title>
       </Head>
+
       <Picture image={image} />
     </>
   );

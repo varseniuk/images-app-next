@@ -1,7 +1,6 @@
-import { FC } from 'react';
-import Head from 'next/head';
-import { useEffect, useState, useCallback } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Head from 'next/head';
 import Gallery from '../../components/Gallery/Gallery';
 import { favouritesActions } from '../../store/reducers/favouritesReducer';
 import { RootState } from '../../store/store';
@@ -29,6 +28,7 @@ const FavouritesPage: FC = () => {
       <Head>
         <title>Favourites</title>
       </Head>
+
       <div className="container">
         {!!favourites.length ? (
           <Button

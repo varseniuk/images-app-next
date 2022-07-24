@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import styles from './Gallery.module.scss';
 import Link from 'next/link';
 import { imagesType } from '../../typedefs';
+import styles from './Gallery.module.scss';
 
 const Gallery: FC<imagesType> = ({ images }) => {
   return (

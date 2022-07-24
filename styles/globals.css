@@ -18,16 +18,11 @@ a {
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .favouritesTitle {
   align-self: center;
-}
-
-.clearFavouritesButton {
-  width: 200px;
-  align-self: center;
-  margin-bottom: 40px;
 }

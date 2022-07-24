@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { searchResultsActions } from '../../store/reducers/searchResultsReducer';
 import { imageType } from '../../typedefs';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import styles from './SearchBar.module.scss';
 
@@ -54,7 +55,6 @@ const SearchBar: FC<Props> = ({
       <TextField
         label="Search some image"
         variant="standard"
-        className={styles.searchInput}
         onChange={(e) => handleInput(e.target.value)}
         value={query}
         onKeyDown={(e) => {
@@ -65,27 +65,24 @@ const SearchBar: FC<Props> = ({
         error={searchError}
         onBlur={() => setSearchError(false)}
         helperText={searchError ? 'Nothing found' : ' '}
+        sx={{
+          mr: {
+            sm: 2,
+            xs: 1,
+          },
+        }}
       />
-
-      <Button
-        onClick={handleSearch}
-        className={styles.searchButton}
-        variant="contained"
-        color="success"
-      >
-        Search
-      </Button>
-
-      {withSearchResults && (
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={handleClearSearch}
-          className={styles.clearButton}
-        >
-          Clear search results
+      <Stack spacing={2} direction={{ xs: 'column', sm: 'row' }}>
+        <Button onClick={handleSearch} variant="contained" color="success">
+          Search
         </Button>
-      )}
+
+        {withSearchResults && (
+          <Button variant="outlined" color="error" onClick={handleClearSearch}>
+            Clear search results
+          </Button>
+        )}
+      </Stack>
     </div>
   );
 };

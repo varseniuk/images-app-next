@@ -7,23 +7,10 @@
   padding: 0 20px;
 }
 
-.searchButton {
-  margin: 0 10px;
-}
-
 @media (max-width: 580px) {
   .searchBlock {
     flex-direction: column;
     justify-content: space-between;
-  }
-
-  .searchButton,
-  .clearButton {
-    width: 100%;
-    margin: 10px 0;
-  }
-
-  .searchInput {
-    width: 100%;
+    align-items: stretch;
   }
 }

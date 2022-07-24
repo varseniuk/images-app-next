@@ -73,18 +73,20 @@ const Picture: FC<Props> = ({ image }) => {
       <p>
         For more details about this picture visit{' '}
         <strong>
-          <a href={unsplashLink}>Unsplash</a>
+          <a href={unsplashLink} target="_blank" rel="noreferrer">
+            Unsplash
+          </a>
         </strong>
       </p>
 
       <Stack spacing={2} direction="row">
-        <Button onClick={addToFav} variant="contained">
-          Add to favourites
-        </Button>
-
-        {isFavourited && (
+        {isFavourited ? (
           <Button onClick={removeFromFav} variant="outlined" color="error">
             Remove from favourites
+          </Button>
+        ) : (
+          <Button onClick={addToFav} variant="contained">
+            Add to favourites
           </Button>
         )}
       </Stack>

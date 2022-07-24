@@ -1,4 +1,6 @@
 import { FC, Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchResultsActions } from '../../store/reducers/searchResultsReducer';
 import { imageType } from '../../typedefs';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -7,12 +9,20 @@ import styles from './SearchBar.module.scss';
 interface Props {
   setPictures: Dispatch<SetStateAction<imageType[]>>;
   setInitialPictures: () => void;
+  withSearchResults: boolean;
+  initialQuery: string;
 }
 
-const SearchBar: FC<Props> = ({ setPictures, setInitialPictures }) => {
-  const [query, setQuery] = useState<string>('');
+const SearchBar: FC<Props> = ({
+  setPictures,
+  setInitialPictures,
+  withSearchResults,
+  initialQuery,
+}) => {
+  const [query, setQuery] = useState<string>(initialQuery || '');
   const [searchError, setSearchError] = useState<boolean>(false);
-  const [withSearchResults, setWithSearchResults] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
 
   const handleInput = useCallback(async (value) => {
     setSearchError(false);
@@ -29,22 +39,22 @@ const SearchBar: FC<Props> = ({ setPictures, setInitialPictures }) => {
       setSearchError(true);
       return;
     }
-
-    setWithSearchResults(true);
     setPictures(data.results);
-  }, [query, setPictures]);
+    dispatch(searchResultsActions.saveResults(query, data.results));
+  }, [query, setPictures, dispatch]);
 
   const handleClearSearch = useCallback(() => {
     setQuery('');
-    setWithSearchResults(false);
+    dispatch(searchResultsActions.clearResults());
     setInitialPictures();
-  }, [setInitialPictures]);
+  }, [setInitialPictures, dispatch]);
 
   return (
     <div className={styles.searchBlock}>
       <TextField
         label="Search some image"
         variant="standard"
+        className={styles.searchInput}
         onChange={(e) => handleInput(e.target.value)}
         value={query}
         onKeyDown={(e) => {
@@ -54,11 +64,12 @@ const SearchBar: FC<Props> = ({ setPictures, setInitialPictures }) => {
         }}
         error={searchError}
         onBlur={() => setSearchError(false)}
-        helperText={searchError ? 'Nothing found' : ''}
+        helperText={searchError ? 'Nothing found' : ' '}
       />
 
       <Button
         onClick={handleSearch}
+        className={styles.searchButton}
         variant="contained"
         color="success"
         sx={{ margin: '0 2rem' }}
@@ -67,7 +78,12 @@ const SearchBar: FC<Props> = ({ setPictures, setInitialPictures }) => {
       </Button>
 
       {withSearchResults && (
-        <Button variant="outlined" color="error" onClick={handleClearSearch}>
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={handleClearSearch}
+          className={styles.searchButton}
+        >
           Clear search results
         </Button>
       )}

@@ -1,8 +1,10 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Gallery from '../components/Gallery/Gallery';
-import { imageType } from '../typedefs';
+import { imageType, searchResultType } from '../typedefs';
+import { RootState } from '../store/store';
 import SearchBar from '../components/SearchBar/SearchBar';
 
 export const getServerSideProps: GetServerSideProps = async () => {
@@ -31,7 +33,21 @@ interface Props {
 }
 
 const HomePage: FC<Props> = ({ images }) => {
-  const [pictures, setPictures] = useState<imageType[]>(images);
+  const [pictures, setPictures] = useState<imageType[]>([]);
+
+  const searchResults = useSelector<RootState, searchResultType>(
+    (state) => state.searchResults
+  );
+
+  const withSearchResults = !!searchResults.results?.length;
+
+  useEffect(() => {
+    if (withSearchResults) {
+      setPictures(searchResults.results);
+    } else {
+      setPictures(images);
+    }
+  }, [searchResults, withSearchResults, images]);
 
   const setInitialPictures = useCallback(() => {
     setPictures(images);
@@ -47,6 +63,8 @@ const HomePage: FC<Props> = ({ images }) => {
         <SearchBar
           setPictures={setPictures}
           setInitialPictures={setInitialPictures}
+          withSearchResults={withSearchResults}
+          initialQuery={searchResults.query || ''}
         />
 
         <Gallery images={pictures} />

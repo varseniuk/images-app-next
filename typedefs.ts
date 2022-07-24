@@ -21,3 +21,8 @@ export type imageType = {
 export type imagesType = {
   images: imageType[];
 };
+
+export type searchResultType = {
+  query: string;
+  results: imageType[];
+};

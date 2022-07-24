@@ -1,6 +1,24 @@
 .searchBlock {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   align-self: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+@media (max-width: 580px) {
+  .searchBlock {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .searchButton {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .searchInput {
+    width: 100%;
+  }
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Gallery from '../../components/Gallery/Gallery';
@@ -8,20 +8,15 @@ import { imageType } from '../../typedefs';
 import Button from '@mui/material/Button';
 
 const FavouritesPage: FC = () => {
-  const favs = useSelector<RootState, imageType[]>((state) => state.favourites);
+  const favourites = useSelector<RootState, imageType[]>(
+    (state) => state.favourites
+  );
 
   const dispatch = useDispatch();
 
-  const [favourites, setFavourites] = useState<imageType[]>([]);
-
-  const clearFavs = useCallback(() => {
+  const clearFavourites = useCallback(() => {
     dispatch(favouritesActions.clearAll());
-    setFavourites([]);
   }, [dispatch]);
-
-  useEffect(() => {
-    setFavourites(favs);
-  }, [favs]);
 
   return (
     <>
@@ -32,7 +27,7 @@ const FavouritesPage: FC = () => {
       <div className="container">
         {!!favourites.length ? (
           <Button
-            onClick={clearFavs}
+            onClick={clearFavourites}
             variant="contained"
             color="error"
             sx={{ width: '25%', alignSelf: 'center', mb: 5 }}

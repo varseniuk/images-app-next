@@ -21,3 +21,9 @@
     transform: scale(1.2);
   }
 }
+
+@media (max-width: 720px) {
+  .imagesContainer {
+    justify-content: center;
+  }
+}

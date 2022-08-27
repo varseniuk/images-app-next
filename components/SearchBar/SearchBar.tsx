@@ -1,4 +1,4 @@
-import { FC, Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { FC, Dispatch, SetStateAction, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchResultsActions } from '../../store/reducers/searchResultsReducer';
 import { imageType } from '../../typedefs';
@@ -25,12 +25,12 @@ const SearchBar: FC<Props> = ({
 
   const dispatch = useDispatch();
 
-  const handleInput = useCallback(async (value) => {
+  const handleInput = (value) => {
     setSearchError(false);
     setQuery(value);
-  }, []);
+  };
 
-  const handleSearch = useCallback(async () => {
+  const handleSearch = async () => {
     const SEARCH_URL = `${process.env.NEXT_PUBLIC_API_PATH}/search/photos?page=1&per_page=12&query=${query}&client_id=${process.env.NEXT_PUBLIC_ACCESS_KEY}`;
 
     const response = await fetch(SEARCH_URL);
@@ -42,13 +42,13 @@ const SearchBar: FC<Props> = ({
     }
     setPictures(data.results);
     dispatch(searchResultsActions.saveResults(query, data.results));
-  }, [query, setPictures, dispatch]);
+  };
 
-  const handleClearSearch = useCallback(() => {
+  const handleClearSearch = () => {
     setQuery('');
     dispatch(searchResultsActions.clearResults());
     setInitialPictures();
-  }, [setInitialPictures, dispatch]);
+  };
 
   return (
     <div className={styles.searchBlock}>
